@@ -21,13 +21,12 @@ def predict_datapoint():
         return render_template('home.html')
     else:
         data=CustomData(
-            gender=request.form.get('gender'),
-            race_ethnicity=request.form.get('ethnicity'),
-            parental_level_of_education=request.form.get('parental_level_of_education'),
-            lunch=request.form.get('lunch'),
-            test_preparation_course=request.form.get('test_preparation_course'),
-            reading_score=float(request.form.get('writing_score')),
-            writing_score=float(request.form.get('reading_score'))
+            X1_transaction_date=float(request.form.get('X1 transaction date')),
+            X2_house_age=float(request.form.get('X2 house age')),
+            X3_distance_to_the_nearest_MRT_station=float(request.form.get('X3 distance to the nearest MRT station')),
+            X4_number_of_convenience_stores=float(request.form.get('X4 number of convenience stores')),
+            X5_latitude=float(request.form.get('X5 latitude')),
+            X6_longitude=float(request.form.get('X6 longitude')),
 
         )
         pred_df=data.get_data_as_data_frame()
@@ -42,6 +41,4 @@ def predict_datapoint():
     
 
 if __name__=="__main__":
-    app.run(host="0.0.0.0")        
-
-
+    app.run(host="0.0.0.0",debug=True)        

@@ -11,55 +11,49 @@ class PredictPipeline:
 
     def predict(self,features):
         try:
-            model_path=os.path.join("artifacts","model.pkl")
-            preprocessor_path=os.path.join('artifacts','preprocessor.pkl')
+            model_path="C:\\Users\\shiva\\OneDrive\\Desktop\\mlproject-main\\artifacts\\model.pkl"
+            # preprocessor_path="C:\\Users\\shiva\\OneDrive\\Desktop\\mlproject-main\\artifacts\\proprocessor.pkl"
             print("Before Loading")
             model=load_object(file_path=model_path)
-            preprocessor=load_object(file_path=preprocessor_path)
+            # preprocessor=load_object(file_path=preprocessor_path)
             print("After Loading")
-            data_scaled=preprocessor.transform(features)
-            preds=model.predict(data_scaled)
+            # data_scaled=preprocessor.transform(features)
+            preds=model.predict(features)[0]
             return preds
         
         except Exception as e:
             raise CustomException(e,sys)
 
-
-
 class CustomData:
     def __init__(  self,
-        gender: str,
-        race_ethnicity: str,
-        parental_level_of_education,
-        lunch: str,
-        test_preparation_course: str,
-        reading_score: int,
-        writing_score: int):
+        X1_transaction_date:float,
+        X2_house_age:float,
+        X3_distance_to_the_nearest_MRT_station:float,
+        X4_number_of_convenience_stores:float,
+        X5_latitude:float,
+        X6_longitude:float):
 
-        self.gender = gender
+        self.X1_transaction_date = X1_transaction_date
 
-        self.race_ethnicity = race_ethnicity
+        self.X2_house_age = X2_house_age
 
-        self.parental_level_of_education = parental_level_of_education
+        self.X3_distance_to_the_nearest_MRT_station = X3_distance_to_the_nearest_MRT_station
 
-        self.lunch = lunch
+        self.X4_number_of_convenience_stores = X4_number_of_convenience_stores
 
-        self.test_preparation_course = test_preparation_course
+        self.X5_latitude = X5_latitude
 
-        self.reading_score = reading_score
-
-        self.writing_score = writing_score
+        self.X6_longitude = X6_longitude
 
     def get_data_as_data_frame(self):
         try:
             custom_data_input_dict = {
-                "gender": [self.gender],
-                "race_ethnicity": [self.race_ethnicity],
-                "parental_level_of_education": [self.parental_level_of_education],
-                "lunch": [self.lunch],
-                "test_preparation_course": [self.test_preparation_course],
-                "reading_score": [self.reading_score],
-                "writing_score": [self.writing_score],
+                "X1 transaction date": [self.X1_transaction_date],
+                "X2 house age": [self.X2_house_age],
+                "X3 distance to the nearest MRT station": [self.X3_distance_to_the_nearest_MRT_station],
+                "X4 number of convenience stores": [self.X4_number_of_convenience_stores],
+                "X5 latitude": [self.X5_latitude],
+                "X6 longitude": [self.X6_longitude],
             }
 
             return pd.DataFrame(custom_data_input_dict)
